@@ -19,29 +19,50 @@ public class JpaMain {
         tx.begin();
 
         try{
+
+            /*연관관계 연습*/
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setName("MemberA");
+            member.setTeam(team);
+            em.persist(member);
+
+
+
+
+            em.flush();
+            em.clear();
+
+
+
+
+//            System.out.println("findTeam = " + findTeam.getName());
             /*기본키 매핑 연습*/
-            Member member1 = new Member();
-            member1.setUsername("C");
-
-            Member member2 = new Member();
-            member2.setUsername("B");
-
-            Member member3 = new Member();
-            member3.setUsername("C");
-
-            System.out.println("==================");
+//            Member member1 = new Member();
+//            member1.setUsername("C");
+//
+//            Member member2 = new Member();
+//            member2.setUsername("B");
+//
+//            Member member3 = new Member();
+//            member3.setUsername("C");
+//
+//            System.out.println("==================");
 
             //기본키가 AUTO_INCREAMENT이면 예외적으로 insert쿼리를 커밋이 아닌 persist시점에 날림.(1차캐시에 key 값으로 기본키를 사용하기 때문에)
             //오토로 생성하면 기본키를 얻기 위해서는 디비에 조회를 해봐야됨.
-            em.persist(member1);//1, 51 => 처음에 1을 호출하는데, 이는 더미로 호출한것(50으로 설정했는데, 1이 나오니 다시 호출해서 51을 받아냄)
-            em.persist(member2);//이제 호출없이 메모리에서 가져옴
-            em.persist(member3);//메모리에서 가져옴
-
-            System.out.println("member1.getId() = " + member1.getId());
-            System.out.println("member2.getId() = " + member2.getId());
-            System.out.println("member3.getId() = " + member3.getId());
-
-            System.out.println("==================");
+//            em.persist(member1);//1, 51 => 처음에 1을 호출하는데, 이는 더미로 호출한것(50으로 설정했는데, 1이 나오니 다시 호출해서 51을 받아냄)
+//            em.persist(member2);//이제 호출없이 메모리에서 가져옴
+//            em.persist(member3);//메모리에서 가져옴
+//
+//            System.out.println("member1.getId() = " + member1.getId());
+//            System.out.println("member2.getId() = " + member2.getId());
+//            System.out.println("member3.getId() = " + member3.getId());
+//
+//            System.out.println("==================");
 
             
             /*저장*/

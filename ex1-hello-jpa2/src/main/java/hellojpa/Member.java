@@ -71,27 +71,62 @@ import java.util.Date;
 //sequece의 allocationSize를 너무 크게 잡으면, 다 못쓰고, 서버가 내려가면 그만큼 낭비임
 //따라서 보통 50~100정도가 적절함.
 
-@Entity
-@SequenceGenerator(
-        name = "MEMBER_SEQ_GENERATOR",
-        sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
-        initialValue = 1, allocationSize = 50) //allocationSize를 설정하면 오토로 증가시킬 시퀀스 값을 미리 많이 가져다가 메모리에 올려서 씀,
-//@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
-public class Member{
+/*엔티티기능들*/
+//@Entity
+//@SequenceGenerator(
+//        name = "MEMBER_SEQ_GENERATOR",
+//        sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
+//        initialValue = 1, allocationSize = 50) //allocationSize를 설정하면 오토로 증가시킬 시퀀스 값을 미리 많이 가져다가 메모리에 올려서 씀,
+////@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
+//public class Member{
+//
+//    //@Id는 직접 할당할때 쓰면됨(이것만 쓰면 직접 할당)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+//            generator = "MEMBER_SEQ_GENERATOR")
+////    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+//    private Long id;
+//
+//    @Column(name="name",nullable = false)
+//    private String username;
+//
+//    //JPA가 관리할때 생성자를 이용해서 이것저것 동작하기 때문에 만들어줘야됨.
+//    public Member(){
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
+//}
 
-    //@Id는 직접 할당할때 쓰면됨(이것만 쓰면 직접 할당)
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "MEMBER_SEQ_GENERATOR")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+/*연관관계 예제*/
+@Entity
+public class Member {
+    @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name="name",nullable = false)
-    private String username;
+    @Column(name = "USERNAME")
+    private String name;
 
-    //JPA가 관리할때 생성자를 이용해서 이것저것 동작하기 때문에 만들어줘야됨.
-    public Member(){
-    }
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -101,11 +136,19 @@ public class Member{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
