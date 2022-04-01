@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -20,21 +21,48 @@ public class JpaMain {
 
         try{
 
-            /*연관관계 연습*/
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
             Member member = new Member();
-            member.setName("MemberA");
-            member.setTeam(team);
+            member.setCreatedBy("kim");
+            member.setName("user1");
+            member.setCreateDate(LocalDateTime.now());
+
             em.persist(member);
-
-
-
 
             em.flush();
             em.clear();
+
+            /*상속관계 매핑 전략*/
+//            Movie movie = new Movie();
+//            movie.setDirector("aaaa");
+//            movie.setActor("bbbb");
+//            movie.setName("testMovie");
+//            movie.setPrice(10000);
+//
+//            em.persist(movie);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Movie findMove = em.find(Movie.class, movie.getId());
+//            System.out.println("findMove = " + findMove);
+
+
+
+            /*연관관계 연습*/
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setName("MemberA");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//
+//
+//
+//            em.flush();
+//            em.clear();
 
 
 

@@ -1,27 +1,23 @@
-package jpabook.jpashop.domain;
+package hellojpa;
+
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+//TABLE_PER_CLASS 전략에서는 상위테이블을 추상 클래스로 만들어 주어야 함.
+//그냥 클래스로 만들면, 이 테이블 단독으로 쓰이는 경우가 있다고 생각하고 JPA가 이를 테이블로 만듦
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn
 public abstract class Item extends BaseEntity{
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
+
 
     private String name;
 
     private int price;
-
-    private int stockQuantity;
-
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -45,13 +41,5 @@ public abstract class Item extends BaseEntity{
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
     }
 }

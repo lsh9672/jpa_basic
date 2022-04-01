@@ -113,13 +113,14 @@ import java.util.Date;
 
 /*연관관계 예제*/
 @Entity
-public class Member {
+public class Member extends BaseEntity{
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
     @Column(name = "USERNAME")
     private String name;
+
 
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
