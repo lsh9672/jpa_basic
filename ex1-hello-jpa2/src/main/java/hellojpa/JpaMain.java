@@ -21,15 +21,78 @@ public class JpaMain {
 
         try{
 
-            Member member = new Member();
-            member.setCreatedBy("kim");
-            member.setName("user1");
-            member.setCreateDate(LocalDateTime.now());
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            em.persist(member);
+            Parent parent = new Parent();
+
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+//            em.persist(child1);
+//            em.persist(child2);
 
             em.flush();
             em.clear();
+
+            Parent findParent = em.find(Parent.class, parent.getId());
+//            findParent.getChildList().remove(0);
+
+            em.remove(findParent);
+
+//            Team team = new Team();
+//            team.setName("test1");
+//            em.persist(team);
+//
+//            Team team2 = new Team();
+//            team2.setName("test2");
+//            em.persist(team2);
+//
+//            Member member = new Member();
+//            member.setName("hello");
+//            member.setTeam(team);
+//
+//            em.persist(member);
+//
+//            Member member2 = new Member();
+//            member2.setName("hello2");
+//            member2.setTeam(team2);
+//
+//            em.persist(member2);
+//
+//            em.flush();
+//            em.clear();
+//
+////            Member findMember = em.find(Member.class, member.getId());
+////            System.out.println("findMember.getTeam().getClass() = " + findMember.getTeam().getClass());
+////            System.out.println("=========");
+////            System.out.println("findMember.getTeam().getName() = " + findMember.getTeam().getName());
+//
+//            List<Member> members = em.createQuery("SELECT m FROM Member m JOIN FETCH m.team", Member.class)
+//                    .getResultList();
+
+            //
+//            Member findMember = em.find(Member.class, member.getId());
+//            System.out.println("findMember.getId() = " + findMember.getId());
+//            System.out.println("findMember.getName() = " + findMember.getName());
+
+//            Member findMember = em.getReference(Member.class, member.getId());
+//            System.out.println("findMember = " + findMember.getClass()); //프록시~~~ 로 붙어서 나오는데, 이것이 JPA가 가짜로 만든 객체임
+//            System.out.println("findMember.getId() = " + findMember.getId());
+//            System.out.println("findMember.getName() = " + findMember.getName());
+//            System.out.println("findMember.getName() = " + findMember.getName());
+//            System.out.println("findMember.getclass = " + findMember.getClass());
+
+//            Member member = new Member();
+//            member.setCreatedBy("kim");
+//            member.setName("user1");
+//            member.setCreateDate(LocalDateTime.now());
+//
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
 
             /*상속관계 매핑 전략*/
 //            Movie movie = new Movie();
@@ -132,6 +195,7 @@ public class JpaMain {
 
         }catch (Exception e){
             tx.rollback();
+            e.printStackTrace();
         } finally{
             em.close();
         }

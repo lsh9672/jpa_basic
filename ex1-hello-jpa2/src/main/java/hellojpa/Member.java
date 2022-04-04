@@ -121,12 +121,11 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME")
     private String name;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "LOCKER_ID")
+//    private Locker locker;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -146,11 +145,19 @@ public class Member extends BaseEntity{
         this.name = name;
     }
 
-    public Team getTeam() {
+//    public hellojpa.Locker getLocker() {
+//        return locker;
+//    }
+
+//    public void setLocker(hellojpa.Locker locker) {
+//        this.locker = locker;
+//    }
+
+    public hellojpa.Team getTeam() {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(hellojpa.Team team) {
         this.team = team;
     }
 }
