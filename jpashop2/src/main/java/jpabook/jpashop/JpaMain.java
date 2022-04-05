@@ -24,7 +24,7 @@ public class JpaMain {
         try{
 
             Book book = new Book();
-            book.getClass()
+            book.getClass();
             book.setName("JPA");
             book.setAuthor("tester");
 

@@ -3,7 +3,7 @@ package hellojpa;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.*;
 
 //이 어노테이션이 있어야 JPA를 사용하는 클래스라고 인식하고 관리함.
 //@Entity
@@ -112,22 +112,96 @@ import java.util.Date;
 //}
 
 /*연관관계 예제*/
+//@Entity
+//public class Member extends BaseEntity{
+//    @Id @GeneratedValue
+//    @Column(name = "MEMBER_ID")
+//    private Long id;
+//
+//    @Column(name = "USERNAME")
+//    private String name;
+//
+////    @OneToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "LOCKER_ID")
+////    private Locker locker;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "TEAM_ID")
+//    private Team team;
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+////    public hellojpa.Locker getLocker() {
+////        return locker;
+////    }
+//
+////    public void setLocker(hellojpa.Locker locker) {
+////        this.locker = locker;
+////    }
+//
+//    public hellojpa.Team getTeam() {
+//        return team;
+//    }
+//
+//    public void setTeam(hellojpa.Team team) {
+//        this.team = team;
+//    }
+//}
+
+/*타입예제*/
 @Entity
-public class Member extends BaseEntity{
-    @Id @GeneratedValue
+public class Member {
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
     @Column(name = "USERNAME")
-    private String name;
+    private String username;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "LOCKER_ID")
-//    private Locker locker;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    //기간 period
+    @Embedded
+    private Period workPeriod;
+
+    //주소
+    @Embedded
+    private Address homeAddress;
+
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID")
+    )
+    private Set<String> favoriteFoods = new HashSet<>();
+
+//    @ElementCollection
+//    @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+//    private List<Address> addressHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
+
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name="city",column=@Column(name="WORK_CITY")),
+//            @AttributeOverride(name="street",column=@Column(name="WORK_STREET")),
+//            @AttributeOverride(name="zipcode",column=@Column(name="WORK_ZIPCODE"))
+//    })
+//    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -137,27 +211,43 @@ public class Member extends BaseEntity{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-//    public hellojpa.Locker getLocker() {
-//        return locker;
-//    }
-
-//    public void setLocker(hellojpa.Locker locker) {
-//        this.locker = locker;
-//    }
-
-    public hellojpa.Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setTeam(hellojpa.Team team) {
-        this.team = team;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public void setFavoriteFoods(Set<String> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
+    }
+
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
+    }
+
+    public void setAddressHistory(List<AddressEntity> addressHistory) {
+        this.addressHistory = addressHistory;
     }
 }
