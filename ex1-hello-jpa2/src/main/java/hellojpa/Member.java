@@ -223,9 +223,9 @@ public class Member {
         return workPeriod;
     }
 
-    public void setWorkPeriod(Period workPeriod) {
-        this.workPeriod = workPeriod;
-    }
+//    public void setWorkPeriod(Period workPeriod) {
+//        this.workPeriod = workPeriod;
+//    }
 
     public Address getHomeAddress() {
         return homeAddress;
