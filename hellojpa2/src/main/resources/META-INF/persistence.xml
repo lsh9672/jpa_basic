@@ -16,6 +16,8 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create" />
+           <!--실무에서는 배치 사이즈를 기본으로 깔고 씀(1000이하의 값을 적절히 주면됨)-->
+            <property name="hibernate.default_batch_fetch_size" value="100"/>
         </properties>
     </persistence-unit>
 </persistence>
