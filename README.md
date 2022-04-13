@@ -20,3 +20,5 @@
 ### 섹션 9. https://www.notion.so/ORM-JPA-9-829bb75c5906462590683b12bd7dd2e9
 
 ### 섹션 10. https://www.notion.so/ORM-JPA-10-d9ceec21e8cc4b7fb16cca34e7c30c37
+
+### 섹션 11. https://www.notion.so/ORM-JPA-11-f00a3eae923746f2940676bb30364b89
